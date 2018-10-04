@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "GildedRose": {
+      "commandName": "Project",
+      "commandLineArgs": "GildedRoseInput.txt"
+    }
+  }
+}

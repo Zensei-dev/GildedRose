@@ -1,0 +1,73 @@
+﻿DESIGN NOTES
+
+SYSTEM CONCEPT
+
+What classes will I need?
+
+Right off the bat I'd say:
+	CLI : Basic CLI / Program class
+	Input : Get data from file
+	Model : Our item class
+	Output : Output the results of our program
+
+So what about the core of the program? Well there's a lot of rules to understand first so I can't immediately picture how they will all interact as there are many branching possibilities.
+I'm going to take it step by step as I gain more understanding of how I'll implement this.
+
+ITEM MODEL
+
+I'll start with the item model. I'll go ahead and define a basic "FinestGoods" model.
+
+public class FinestGood
+{
+	string ItemName
+	int SellIn
+	int Quality
+}
+
+This gives me a starting point of what I'm dealing with.
+
+THE DAILY UPDATE
+
+Now I'm thinking I'm probably going to have some kind of processing class which updates all items daily. Let's call it the FinestGoodsUpdater class for now.
+Even if it's as simple as calling an update method in each FinestGood.
+
+My first thought is creating different types of FinestGood classes, each can have it's own update logic based on the rules that apply to it.
+I could even use inheritance to get fancy and handle objects of base type in the FinestGoodsUpdater class.
+
+Hang on a minute though, we're talking logic rules for inventory management? That sounds a lot like business logic to me.
+
+If there's one thing I know, that's to try to isolate business logic. The FinestGood class doesn't seem a good fit here.
+
+INVENTORY MANAGEMENT RULES
+
+I've decided to actually work backwards from the rules - since I still need to understand them fully before proceeding.
+
+What I'm actually going to do is create a class that contains the logic for all of the individual rules first. Why?
+- I want to make unit tests at the same time to test these rules as they are critical
+- I want to gain a thorough understanding of how the rules interact with each other before even thinking about applying them to FinestGoods
+- Isolating the rules means they can be updated individually. It could even be taken a step further to encapsulating values in app.settings or something similar
+
+RULESETS
+
+Now I've implemented the rules and tested they all work. I'm glad I did that first because the unit tests immediately picked up a handful of errors.
+And I understand the rules now. There's quite a few that "conflict" with each other. Such as the SellIn which is "always" updated first, unless the item type is Sulfuras.
+
+I'm still thinking inheritance is a good way to deal with this. But as mentioned, I don't want this logic in the FinestGoods class.
+I'm going to make separate "ItemUpdaterRulesets" classes, one for each item type and a base abstract class that also defines some default functionality.
+
+Then the ItemUpdaterRuleset for each type can apply the appropriate rules to mathing FinestGoods.
+
+And we can have default behaviour such as updating SellIn, while overriding it to do nothing in the case of Sulfuras.
+I can also architect the class to sequence things in the correct order and not expect the calling class to even know there is a rule ordering that needs to be worried about (such as checking min / max quality values at the end).
+
+TESTS
+Now I've implemented the rulesets and hooked everything together with basic input/output/cli classes for now.
+
+I hope you don't mind that I haven't attempted 100% statement/branch coverage.
+I decided to focus on the key areas: Individual Rules and Item Type Rulesets.
+Normally I would of course also add in more validation and tests for input / output classes etc but felt they were anxilliary to this exercise.
+
+FINAL NOTES
+There's definitely a bit of added complexity with inheritance and separation of responsibilities but I feel this handles the complications of how the rules can interact with each other well. Giving maximum flexibility to define rulesets while also eliminating a lot of repetition which would create a large potential for error. The design also focuses on the testability of individual rules and item type rulesets which to me is mission critical for this type of problem. Not to mention trying to tackle the issue of rule sequencing and keeping this encapsulated within the ItemUpdaterRuleset classes.
+
+There are still a few final areas that could be tidied up further, espcially with regard to unit test inline data and a little bit of repitition there.

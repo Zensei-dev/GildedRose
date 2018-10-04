@@ -1,0 +1,48 @@
+﻿
+//  Let's take our spec rules 1 by 1 and address them since these are mission critical - making sure they are all covered and where
+
+//  1. All items have a SellIn value which denotes the number of days we have to sell the item
+//		MODEL: FinestGood.cs
+
+//  2. All items have a Quality value which denotes how valuable the item is
+//		MODEL: FinestGood.cs 
+
+//  3. At the end of each day our system lowers both values for every item
+//		RULE: InventoryManagementRulesTests.cs > TheGetUpdatedSellInMethod.ReturnsUpdatedSellIn()
+//		RULE: InventoryManagementRulesTests.cs > TheGetDegradedQualityMethod.QualityDegradesNormallyWhenSellInNotPassed()
+
+//  4. Once the sell by date has passed, Quality degrades twice as fast
+//		RULE: InventoryManagementRulesTests.cs > TheHasSellInPassedMethod.ReturnsTrueWhenSellInPassed()
+//		RULE: InventoryManagementRulesTests.cs > TheGetDegradedQualityMethod.QualityDegradesDoubleWhenSellInPassed()
+
+//  5. The Quality of an item is never negative
+//		RULE: InventoryManagementRules.Tests.cs > TheGetMinimumAdjustedQualityMethod.QualityAdjustedBelowMinimum()
+
+//  6. "Aged Brie" actually increases in Quality the older it gets
+//		RULE: InventoryManagementRulesTests.cs > TheGetMaturedQualityMethod.IncreasesQuality();
+//		RULESET: ItemUpdaterRulesetsTests.cs > AgedBrieItemUpdaterRulesetTests
+
+//  7. “Normal Item” decreases in Quality by 1
+//		RULE: InventoryManagementRulesTests.cs > TheGetDegradedQualityMethod.QualityDegradesNormallyWhenSellInNotPassed()
+//		RULESET: ItemUpdaterRulesetsTests.cs > NormalItemUpdaterRulesetTests
+
+//  8. The Quality of an item is never more than 50
+//		RULE: InventoryManagementRulesTests.cs > TheGetMaximumAdjustedQualityMethod.QualityAdjustedAboveMaximum()
+
+//  9. "Sulfuras", being a legendary item, never has to be sold or decreases in Quality
+//		RULE: InventoryManagementRulesTests.cs > TheGetSulfurasQualityMethod.NothingHappens()
+//		RULESET: ItemUpdaterRulesetsTests.cs > SulfurasItemUpdaterRulesetTests
+
+// 10. "Backstage passes", like aged brie, increases in Quality as its SellIn value approaches;
+//     Its quality increases by 2 when there are 10 days or less and by 3 when
+//	   there are 5 days or less but quality drops to 0 after the concert
+//		RULE: InventoryManagementRulesTests.cs > TheGetEventQualityMethod.QualityIncreasesBeforeEvent()
+//		RULE: InventoryManagementRulesTests.cs > TheGetEventQualityMethod.QualityIncreasesMoreWhenEventClose()
+//		RULE: InventoryManagementRulesTests.cs > TheGetEventQualityMethod.QualityIncreasesMostWhenEventImminent()
+//		RULE: InventoryManagementRulesTests.cs > TheGetEventQualityMethod.ReturnsZeroWhenSellInPassed()
+//		RULESET: ItemUpdaterRulesetsTests.cs > BackstagePassesItemUpdaterRulesetTests
+
+// 11. "Conjured" items degrade in Quality twice as fast as normal items
+//		RULE: InventoryManagementRulesTests.cs > TheGetConjuredQualityMethod.DegradesAtConjuredRateDuringSellIn()
+//		RULE: InventoryManagementRulesTests.cs > TheGetConjuredQualityMethod.DegradesExtraConjuredRatePastSellIn()
+//		RULESET: ItemUpdaterRulesetsTests.cs > ConjuredItemUpdaterRulesetTests
