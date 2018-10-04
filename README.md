@@ -13,7 +13,7 @@ GildedRose InputFile.txt
   
 Where InputFile.txt is a file containing a list of finest goods in the format: ITEMNAME | SELLIN | QUALITY  
   
-A sample input file is provdied in the solution.
+A sample input file is provided in the solution.
 
 # Unit Tests
 Unit tests created with xUnit.  
