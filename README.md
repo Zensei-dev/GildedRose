@@ -4,9 +4,11 @@
 # Instructions to Build
 Click the Clone or download button and choose your preferred option.
 
-a. From VS 2017: Build and use "dotnet GildedRose.dll InputFile.txt" to run (with supplied GildedRoseInput.txt)
+a. From VS 2017: Build and Run from VS (or use "dotnet GildedRose.dll InputFile.txt" from CLI to run once built)
 
-b. From CLI Solution Directory: Build an executable using "dotnet build -r win10-x64" and use built executable
+b. From CLI Solution Directory: Build an executable using "dotnet build -r win10-x64" and use built executable at command line 
+  
+A sample input file is supplied in the project directory: GildedRoseInput.txt
 
 # CLI Usage
 GildedRose InputFile.txt
