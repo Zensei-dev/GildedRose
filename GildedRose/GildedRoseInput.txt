@@ -1,0 +1,9 @@
+Aged Brie 1 1
+Backstage passes -1 2
+Backstage passes 9 2
+Sulfuras 2 2
+Normal Item -1 55
+Normal Item 2 2
+INVALID ITEM 2 2
+Conjured 2 2
+Conjured -1 5
